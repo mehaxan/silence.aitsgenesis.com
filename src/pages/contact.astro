@@ -1,0 +1,62 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+---
+
+<MarketingLayout title="Contact Sales" description="Contact the Silence sales team for pricing, enterprise plans, integrations and partnerships.">
+  <section class="relative bg-white section-padding">
+    <div class="mx-auto max-w-6xl grid lg:grid-cols-2 gap-16 items-start">
+      <div class="pt-4">
+        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">Contact Sales</p>
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-5">Let's talk</h1>
+        <p class="text-slate-600 leading-relaxed mb-10">Whether you want a quote, have questions about a specific module, or want to discuss a partnership — our team is here.</p>
+        <ul class="space-y-5">
+          <li class="flex items-center gap-3">
+            <span class="h-9 w-9 rounded-xl bg-blue-50 flex items-center justify-center">
+              <i class="fa-solid fa-envelope text-blue-600 text-sm" aria-hidden="true"></i>
+            </span>
+            <a href="mailto:sales@silence.ai" class="text-sm text-slate-700 hover:text-gray-900 transition-colors">sales@silence.ai</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="h-9 w-9 rounded-xl bg-blue-50 flex items-center justify-center">
+              <i class="fa-solid fa-clock text-blue-600 text-sm" aria-hidden="true"></i>
+            </span>
+            <span class="text-sm text-slate-600">We respond within one business day</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-gray-200 bg-white p-8">
+        <h2 class="text-lg font-bold text-slate-900 mb-6">Send us a message</h2>
+        <form name="contact-sales" method="POST" data-netlify="true" class="space-y-5" novalidate>
+          <input type="hidden" name="form-name" value="contact-sales" />
+          <div>
+            <label for="name" class="block text-xs font-medium text-slate-600 mb-1.5">Your name <span aria-hidden="true" class="text-blue-600">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" class="w-full px-4 py-2.5 text-sm bg-gray-100 border border-gray-200 rounded-lg text-slate-900 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400/40 focus:border-blue-1000" />
+          </div>
+          <div>
+            <label for="email" class="block text-xs font-medium text-slate-600 mb-1.5">Work email <span aria-hidden="true" class="text-blue-600">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" class="w-full px-4 py-2.5 text-sm bg-gray-100 border border-gray-200 rounded-lg text-slate-900 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400/40 focus:border-blue-1000" />
+          </div>
+          <div>
+            <label for="subject" class="block text-xs font-medium text-slate-600 mb-1.5">Subject</label>
+            <select id="subject" name="subject" class="w-full px-4 py-2.5 text-sm bg-gray-100 border border-gray-200 rounded-lg text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400/40">
+              <option value="">Select...</option>
+              <option value="pricing">Pricing & Quotes</option>
+              <option value="demo">Request a Demo</option>
+              <option value="integration">Integration Questions</option>
+              <option value="partnership">Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="message" class="block text-xs font-medium text-slate-600 mb-1.5">Message <span aria-hidden="true" class="text-blue-600">*</span></label>
+            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2.5 text-sm bg-gray-100 border border-gray-200 rounded-lg text-slate-900 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400/40 resize-none"></textarea>
+          </div>
+          <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-200 glow-sm">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

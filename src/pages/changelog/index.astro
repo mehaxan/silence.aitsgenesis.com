@@ -1,0 +1,52 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('changelog')).sort((a, b) => b.data.releasedAt.getTime() - a.data.releasedAt.getTime());
+---
+
+<MarketingLayout title="Changelog" description="Silence product changelog — release notes, new features and improvements.">
+  <section class="bg-white section-padding">
+    <div class="mx-auto max-w-3xl">
+      <div class="text-center mb-16">
+        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">Changelog</p>
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-4">What's new in Silence</h1>
+        <p class="text-slate-600">Every release, every improvement — all in one place.</p>
+      </div>
+
+      {entries.length === 0 ? (
+        <div class="text-center py-20 text-slate-600">
+          <i class="fa-solid fa-code-commit text-4xl mb-4" aria-hidden="true"></i>
+          <p>Release notes coming soon.</p>
+        </div>
+      ) : (
+        <ol class="relative border-l border-gray-200 pl-8 space-y-12" role="list">
+          {entries.map((entry) => (
+            <li class="relative">
+              <span class="absolute -left-[41px] h-4 w-4 rounded-full bg-blue-500 border-4 border-white"></span>
+              <time class="text-xs text-slate-500 mb-1 block" datetime={entry.data.releasedAt.toISOString()}>
+                {entry.data.releasedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+              <a href={'/changelog/' + entry.id} class="group">
+                <h2 class="text-lg font-bold text-slate-900 mb-1 group-hover:text-blue-700 transition-colors">
+                  v{entry.data.version} — {entry.data.title}
+                </h2>
+              </a>
+              <p class="text-sm text-slate-600 mb-4">{entry.data.summary}</p>
+              {entry.data.highlights.length > 0 && (
+                <ul class="space-y-1.5">
+                  {entry.data.highlights.map((h) => (
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                      <i class="fa-solid fa-circle-check text-blue-600 text-xs mt-1 shrink-0" aria-hidden="true"></i>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  </section>
+</MarketingLayout>

@@ -1,0 +1,95 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('comparisons');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.competitorSlug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const c = entry.data;
+---
+
+<MarketingLayout title={'Silence vs ' + c.competitor} description={c.description}>
+  <section class="relative bg-white section-padding">
+    <div class="mx-auto max-w-4xl">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-8 transition-colors">
+        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i> Home
+      </a>
+
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">
+        Silence <span class="text-slate-600">vs</span> {c.competitor}
+      </h1>
+      <p class="text-slate-600 text-lg mb-12">{c.description}</p>
+
+      <!-- Comparison table -->
+      <div class="overflow-x-auto mb-16">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-3 pr-6 text-slate-600 font-semibold w-1/2">Feature</th>
+              <th class="py-3 px-4 text-center">
+                <span class="text-blue-600 font-bold">Silence</span>
+              </th>
+              <th class="py-3 px-4 text-center">
+                <span class="text-slate-600 font-semibold">{c.competitor}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {c.features.map((row) => (
+              <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                <td class="py-3 pr-6 text-slate-700">
+                  {row.name}
+                  {row.note && <p class="text-xs text-slate-600 mt-0.5">{row.note}</p>}
+                </td>
+                <td class="py-3 px-4 text-center">
+                  {row.silence ? (
+                    <i class="fa-solid fa-circle-check text-blue-600" aria-label="Yes"></i>
+                  ) : (
+                    <i class="fa-solid fa-circle-xmark text-slate-600" aria-label="No"></i>
+                  )}
+                </td>
+                <td class="py-3 px-4 text-center">
+                  {row.competitor ? (
+                    <i class="fa-solid fa-circle-check text-slate-600" aria-label="Yes"></i>
+                  ) : (
+                    <i class="fa-solid fa-circle-xmark text-slate-600" aria-label="No"></i>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Verdict -->
+      <div class="p-8 rounded-2xl border border-blue-200 bg-blue-50/50 mb-12">
+        <h2 class="text-lg font-bold text-slate-900 mb-3">The verdict</h2>
+        <p class="text-slate-700 leading-relaxed">{c.verdict}</p>
+      </div>
+
+      <!-- MDX extended content -->
+      {entry.body?.trim() && (
+        <div class="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-blue-600 prose-code:text-blue-600 prose-code:bg-gray-100 mb-12">
+          <Content />
+        </div>
+      )}
+
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/demo" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-200 glow-sm">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Request Demo
+        </a>
+        <a href="/features" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-slate-700 rounded-xl border border-gray-200 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
+          See all features
+        </a>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

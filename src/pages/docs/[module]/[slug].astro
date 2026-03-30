@@ -1,0 +1,31 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs', ({ data }) => !data.draft);
+  return entries.map((entry) => {
+    const parts = entry.id.split('/');
+    const mod = entry.data.module ?? parts[0];
+    const slug = parts[parts.length - 1];
+    return {
+      params: { module: mod, slug },
+      props: { entry },
+    };
+  });
+}
+
+const { entry } = Astro.props;
+const { module } = Astro.params;
+const { Content } = await render(entry);
+const doc = entry.data;
+const label = module.charAt(0).toUpperCase() + module.slice(1).replace(/-/g, ' ');
+---
+
+<DocsLayout title={doc.title} description={doc.description} module={module} section={doc.section}>
+  <h1 class="text-3xl font-extrabold text-slate-900 mb-4">{doc.title}</h1>
+  <p class="text-slate-600 mb-10 text-lg">{doc.description}</p>
+  <div class="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-blue-600 prose-code:text-blue-600 prose-code:bg-gray-100 prose-pre:bg-slate-50 prose-pre:border prose-pre:border-gray-200">
+    <Content />
+  </div>
+</DocsLayout>

@@ -1,0 +1,39 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+const modules = [
+  { slug: 'getting-started', icon: 'fa-solid fa-rocket', label: 'Getting Started', desc: 'Introduction, quick start and core concepts.' },
+  { slug: 'workspace', icon: 'fa-solid fa-folder-open', label: 'Workspace', desc: 'Files, documents and spreadsheets.' },
+  { slug: 'communication', icon: 'fa-solid fa-comments', label: 'Communication', desc: 'Chat, email and video conferencing.' },
+  { slug: 'projects', icon: 'fa-solid fa-diagram-project', label: 'Projects', desc: 'Tasks, boards, sprints and Gantt.' },
+  { slug: 'crm', icon: 'fa-solid fa-handshake', label: 'CRM', desc: 'Contacts, pipeline and sales.' },
+  { slug: 'hr', icon: 'fa-solid fa-users', label: 'HR', desc: 'Payroll, recruitment and attendance.' },
+  { slug: 'finance', icon: 'fa-solid fa-file-invoice-dollar', label: 'Finance', desc: 'Invoicing, expenses and accounting.' },
+  { slug: 'operations', icon: 'fa-solid fa-boxes-stacking', label: 'Operations', desc: 'Inventory and procurement.' },
+  { slug: 'ai-automation', icon: 'fa-solid fa-robot', label: 'AI & Automation', desc: 'Workflows, RPA and AI features.' },
+  { slug: 'integrations', icon: 'fa-solid fa-plug', label: 'Integrations', desc: 'Connect to external tools.' },
+  { slug: 'admin', icon: 'fa-solid fa-shield-halved', label: 'Admin', desc: 'Users, permissions and SSO.' },
+];
+---
+
+<DocsLayout title="Documentation" description="Silence user documentation — getting started guides, module references and FAQ.">
+  <h1 class="text-3xl font-extrabold text-slate-900 mb-4">Documentation</h1>
+  <p class="text-slate-600 mb-12 leading-relaxed">Welcome to Silence Docs. Find guides, references and answers for every feature in the platform.</p>
+
+  <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-6">Browse by module</h2>
+  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
+    {modules.map((mod) => (
+      <li>
+        <a href={'/docs/' + mod.slug} class="group flex items-start gap-4 p-5 rounded-xl border border-gray-200 bg-white hover:bg-blue-50/50 hover:border-blue-200 transition-all duration-200">
+          <div class="h-9 w-9 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
+            <i class={mod.icon + ' text-blue-600 text-sm'} aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-slate-900 mb-0.5 group-hover:text-blue-700 transition-colors">{mod.label}</h3>
+            <p class="text-xs text-slate-500">{mod.desc}</p>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</DocsLayout>

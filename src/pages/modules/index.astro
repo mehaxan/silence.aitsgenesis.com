@@ -1,0 +1,50 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+
+const modules = [
+  { slug: 'workspace', icon: 'fa-solid fa-folder-open', label: 'Workspace', tagline: 'Create, share and collaborate', desc: 'Full-featured document editor, spreadsheet and file manager — a complete Google Workspace alternative built into Silence.', replaces: ['Google Docs', 'Google Sheets', 'Google Drive', 'Notion'] },
+  { slug: 'communication', icon: 'fa-solid fa-comments', label: 'Communication', tagline: 'Chat, email and video in one', desc: 'Channels, direct messages, shared inbox and built-in video conferencing — no more switching between Slack, Gmail and Zoom.', replaces: ['Slack', 'Gmail', 'Zoom', 'Outlook'] },
+  { slug: 'projects', icon: 'fa-solid fa-diagram-project', label: 'Projects', tagline: 'Plan, track and ship together', desc: 'Boards, backlogs, sprints, Gantt charts and time tracking — the complete Jira and Monday.com replacement.', replaces: ['Jira', 'Monday.com', 'Asana', 'Linear'] },
+  { slug: 'crm', icon: 'fa-solid fa-handshake', label: 'CRM', tagline: 'Close more deals, faster', desc: 'Visual pipeline, contact management, email sequences and sales analytics all in one place.', replaces: ['Salesforce', 'HubSpot', 'Pipedrive'] },
+  { slug: 'hr', icon: 'fa-solid fa-users', label: 'HR', tagline: 'Hire, onboard and retain talent', desc: 'Applicant tracking, onboarding workflows, time-off management, payroll and performance reviews.', replaces: ['BambooHR', 'Workday', 'Personio'] },
+  { slug: 'finance', icon: 'fa-solid fa-file-invoice-dollar', label: 'Finance', tagline: 'Invoicing to accounting', desc: 'Create invoices, track expenses, manage budgets and reconcile accounts — all with AI-assisted categorisation.', replaces: ['QuickBooks', 'Xero', 'Sage'] },
+  { slug: 'operations', icon: 'fa-solid fa-boxes-stacking', label: 'Operations', tagline: 'Inventory and procurement', desc: 'Manage stock levels, purchase orders, supplier relationships and warehouse operations end-to-end.', replaces: ['SAP', 'Oracle', 'NetSuite'] },
+  { slug: 'ai-automation', icon: 'fa-solid fa-robot', label: 'AI & Automation', tagline: 'Automate anything', desc: 'Visual workflow builder, RPA bots, document intelligence and AI-powered predictions across every module.', replaces: ['Zapier', 'Make', 'UiPath'] },
+  { slug: 'integrations', icon: 'fa-solid fa-plug', label: 'Integrations Hub', tagline: '500+ connectors', desc: 'Connect Silence to any external system via pre-built connectors, webhooks and REST API.', replaces: ['Zapier', 'n8n', 'Boomi'] },
+  { slug: 'admin', icon: 'fa-solid fa-shield-halved', label: 'Admin', tagline: 'Enterprise-grade control', desc: 'Multi-tenancy, SSO, granular permissions, audit logs and data residency policies for IT and compliance teams.', replaces: ['Okta (partial)', 'Azure AD (partial)'] },
+];
+---
+
+<MarketingLayout title="Modules" description="Explore all Silence modules — Workspace, Communication, Projects, CRM, HR, Finance, Operations, AI Automation and more.">
+  <section class="relative bg-white section-padding text-center">
+    <div class="relative mx-auto max-w-3xl mb-16">
+      <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">All modules</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">One platform. Ten powerful modules.</h1>
+      <p class="text-slate-600 text-lg">Replace your entire tool stack with a single, deeply integrated platform.</p>
+    </div>
+
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left mx-auto max-w-7xl" role="list">
+      {modules.map((mod) => (
+        <li>
+          <a href={'/modules/' + mod.slug} class="group flex flex-col h-full p-8 rounded-2xl border border-gray-200 bg-white hover:bg-blue-50/50 hover:border-blue-200 transition-all duration-200">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                <i class={mod.icon + ' text-blue-600'} aria-hidden="true"></i>
+              </div>
+              <div>
+                <h2 class="text-sm font-bold text-slate-900">{mod.label}</h2>
+                <p class="text-xs text-blue-600">{mod.tagline}</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1 mb-4">{mod.desc}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {mod.replaces.map((r) => (
+                <span class="text-xs px-2 py-0.5 rounded-full border border-gray-200 text-slate-500">replaces {r}</span>
+              ))}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</MarketingLayout>

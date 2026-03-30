@@ -1,0 +1,56 @@
+---
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  publishedAt?: Date;
+  updatedAt?: Date;
+  author?: string;
+  tags?: string[];
+}
+
+const { title, description, image, publishedAt, updatedAt, author = 'Silence Team', tags = [] } = Astro.props;
+
+const articleLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  author: { '@type': 'Organization', name: author },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Silence',
+    logo: { '@type': 'ImageObject', url: 'https://silence.ai/images/logo.svg' },
+  },
+  datePublished: publishedAt?.toISOString(),
+  dateModified: (updatedAt ?? publishedAt)?.toISOString(),
+  image: image ? (image.startsWith('http') ? image : `https://silence.ai${image}`) : undefined,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <SEO {title} {description} {image} type="article" {publishedAt} {updatedAt} {author} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleLD)} />
+  </head>
+  <body style="font-family: 'Inter', sans-serif;">
+    <Navbar />
+    <main id="main-content" class="pt-[73px]" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,40 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs', ({ data }) => !data.draft);
+  const modules = [...new Set(entries.map((e) => e.data.module).filter(Boolean))] as string[];
+  return modules.map((mod) => ({
+    params: { module: mod },
+    props: { entries: entries.filter((e) => e.data.module === mod).sort((a, b) => a.data.order - b.data.order) },
+  }));
+}
+
+const { module } = Astro.params;
+const { entries } = Astro.props;
+const label = module.charAt(0).toUpperCase() + module.slice(1).replace(/-/g, ' ');
+---
+
+<DocsLayout title={label + ' — Docs'} description={'Silence documentation for the ' + label + ' module.'} module={module}>
+  <h1 class="text-3xl font-extrabold text-slate-900 mb-4">{label}</h1>
+  <p class="text-slate-600 mb-10">Browse guides and references for the {label} module.</p>
+
+  {entries.length === 0 ? (
+    <p class="text-slate-600">No articles yet.</p>
+  ) : (
+    <ul class="space-y-3" role="list">
+      {entries.map((entry) => (
+        <li>
+          <a href={'/docs/' + module + '/' + entry.id.split('/').pop()} class="group flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white hover:bg-blue-50/50 hover:border-blue-200 transition-all duration-200">
+            <div>
+              <h2 class="text-sm font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">{entry.data.title}</h2>
+              {entry.data.section && <p class="text-xs text-slate-600 mt-0.5">{entry.data.section}</p>}
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-600 text-xs group-hover:text-blue-600 transition-colors" aria-hidden="true"></i>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</DocsLayout>

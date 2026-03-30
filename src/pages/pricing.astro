@@ -1,0 +1,81 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+
+const faqs = [
+  { q: 'How is Silence priced?', a: 'Silence is priced on a per-organisation basis, tailored to your team size, modules and deployment requirements. Contact our sales team for a custom quote.' },
+  { q: 'Is there a free trial?', a: 'Yes. We offer a guided proof-of-concept for qualifying organisations. Request a demo and our team will set one up for you.' },
+  { q: 'What is included in the enterprise plan?', a: 'All modules, unlimited users, multi-tenant support, SSO, dedicated Customer Success Manager, SLA-backed support and optional professional services.' },
+  { q: 'Can I start with only a few modules?', a: 'Absolutely. You can activate only the modules you need today and expand at any time. Pricing reflects your active modules.' },
+  { q: 'Is there a setup fee?', a: 'Setup and onboarding are included in enterprise agreements. For complex migrations, optional professional services are available.' },
+  { q: 'What regions are available for data residency?', a: 'Silence supports EU (Frankfurt), US East, US West and Asia Pacific (Singapore). Additional regions are available on request.' },
+];
+
+const pricingLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<MarketingLayout title="Pricing" description="Silence enterprise pricing — custom plans for organisations of all sizes. Contact sales for a personalised quote.">
+  <script type="application/ld+json" set:html={JSON.stringify(pricingLD)}></script>
+
+  <!-- Hero -->
+  <section class="relative bg-white section-padding text-center">
+    <div class="mx-auto max-w-3xl mb-16">
+      <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">Pricing</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">Pricing built around your organisation</h1>
+      <p class="text-slate-600 text-lg max-w-xl mx-auto">No rigid tiers. No per-seat surprises. Silence is priced to match your organisation's reality — modules, users and deployment model.</p>
+    </div>
+
+    <!-- Value props -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mx-auto max-w-4xl mb-16">
+      {[
+        { icon: 'fa-solid fa-cubes', title: 'Module-based', desc: 'Pay only for the modules you activate.' },
+        { icon: 'fa-solid fa-users', title: 'Unlimited users', desc: 'No per-seat fees — grow your team freely.' },
+        { icon: 'fa-solid fa-handshake', title: 'Flexible terms', desc: 'Monthly, annual or multi-year contracts.' },
+      ].map((v) => (
+        <div class="p-8 rounded-2xl border border-gray-200 bg-white text-left">
+          <div class="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <i class={v.icon + ' text-blue-600'} aria-hidden="true"></i>
+          </div>
+          <h2 class="text-base font-bold text-slate-900 mb-2">{v.title}</h2>
+          <p class="text-sm text-slate-600">{v.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA card -->
+    <div class="mx-auto max-w-lg p-12 rounded-2xl border border-blue-200 bg-blue-50/50">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Get a custom quote</h2>
+      <p class="text-slate-600 mb-8">Tell us about your organisation and we'll put together a tailored proposal within 24 hours.</p>
+      <div class="flex flex-col gap-3">
+        <a href="/demo" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-200 glow-sm">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Request Demo
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-slate-700 rounded-xl border border-gray-200 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-slate-50 section-padding" aria-labelledby="faq-heading">
+    <div class="mx-auto max-w-3xl">
+      <h2 id="faq-heading" class="text-2xl font-bold text-slate-900 mb-10 text-center">Frequently asked questions</h2>
+      <dl class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="p-6 rounded-2xl border border-gray-200 bg-white">
+            <dt class="text-sm font-semibold text-slate-900 mb-2">{faq.q}</dt>
+            <dd class="text-sm text-slate-600 leading-relaxed">{faq.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+</MarketingLayout>

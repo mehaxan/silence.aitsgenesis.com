@@ -1,0 +1,131 @@
+---
+const footerLinks = [
+  {
+    heading: 'Product',
+    links: [
+      { label: 'Features', href: '/features' },
+      { label: 'Modules', href: '/modules' },
+      { label: 'Integrations', href: '/integrations' },
+      { label: 'Changelog', href: '/changelog' },
+      { label: 'Security', href: '/security' },
+    ],
+  },
+  {
+    heading: 'Solutions',
+    links: [
+      { label: 'Enterprise', href: '/solutions/enterprise' },
+      { label: 'SME', href: '/solutions/sme' },
+      { label: 'vs Jira', href: '/vs/jira' },
+      { label: 'vs Google Workspace', href: '/vs/google-workspace' },
+      { label: 'vs Microsoft 365', href: '/vs/microsoft-365' },
+    ],
+  },
+  {
+    heading: 'Resources',
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Documentation', href: '/docs' },
+      { label: 'Customers', href: '/customers' },
+      { label: 'FAQ', href: '/docs/faq' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Request Demo', href: '/demo' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+    ],
+  },
+];
+
+const socials = [
+  {
+    label: 'Twitter / X',
+    href: 'https://twitter.com/silenceai',
+    icon: 'fa-brands fa-x-twitter',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/company/silence-ai',
+    icon: 'fa-brands fa-linkedin',
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/silence-ai',
+    icon: 'fa-brands fa-github',
+  },
+];
+---
+
+<footer class="border-t border-gray-200 bg-white" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 py-16 lg:px-24">
+    <!-- Top section -->
+    <div class="xl:grid xl:grid-cols-5 xl:gap-12">
+      <!-- Brand -->
+      <div class="xl:col-span-1 mb-12 xl:mb-0">
+        <a href="/" class="flex items-center gap-3 group" aria-label="Silence home">
+          <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <span class="text-lg font-bold text-slate-900">Silence</span>
+        </a>
+        <p class="mt-4 text-sm leading-6 text-slate-600 max-w-xs">
+          AI-powered enterprise automation. The all-in-one platform to go paperless and automate your entire business.
+        </p>
+        <!-- Social links -->
+        <div class="mt-6 flex gap-4">
+          {socials.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-slate-500 hover:text-slate-700 transition-colors"
+              aria-label={s.label}
+            >
+              <i class={`${s.icon} text-lg`} aria-hidden="true"></i>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      <div class="xl:col-span-4 grid grid-cols-2 gap-8 sm:grid-cols-4">
+        {footerLinks.map((col) => (
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-600">
+              {col.heading}
+            </h3>
+            <ul role="list" class="mt-4 space-y-3">
+              {col.links.map((link) => (
+                <li>
+                  <a href={link.href} class="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-150">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 border-t border-gray-200 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-slate-500">
+        &copy; {new Date().getFullYear()} Silence. All rights reserved.
+      </p>
+      <div class="flex gap-6">
+        <a href="/privacy" class="text-sm text-slate-500 hover:text-slate-700 transition-colors">Privacy</a>
+        <a href="/terms" class="text-sm text-slate-500 hover:text-slate-700 transition-colors">Terms</a>
+        <a href="/cookies" class="text-sm text-slate-500 hover:text-slate-700 transition-colors">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>

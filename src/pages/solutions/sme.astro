@@ -1,0 +1,44 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+
+const why = [
+  { icon: 'fa-solid fa-circle-dollar-to-slot', title: 'Replace 10 tools with one', desc: 'Stop paying for Slack, Jira, Google Workspace and QuickBooks separately. Silence does it all.' },
+  { icon: 'fa-solid fa-rocket', title: 'Up and running in days', desc: 'Guided onboarding, pre-built templates and a clean UI means your team is productive fast.' },
+  { icon: 'fa-solid fa-arrows-up-to-line', title: 'Scales with you', desc: 'Start with the modules you need today and activate new ones as you grow.' },
+  { icon: 'fa-solid fa-robot', title: 'AI from day one', desc: 'Even small teams benefit from AI automation — auto-classify invoices, summarise meetings and more.' },
+];
+---
+
+<MarketingLayout title="Silence for SME" description="Silence for small and medium businesses — replace your entire tool stack with one AI-powered platform. Fast setup, fair pricing, all modules included.">
+  <section class="relative bg-white section-padding">
+    <div class="mx-auto max-w-7xl">
+      <div class="text-center mb-16">
+        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">Small & Medium Business</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">The all-in-one platform for growing businesses</h1>
+        <p class="text-slate-600 text-lg max-w-2xl mx-auto">SMEs deserve enterprise-quality tools without enterprise complexity or price tags. Silence delivers.</p>
+      </div>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-20" role="list">
+        {why.map((w) => (
+          <li class="flex gap-5 p-8 rounded-2xl border border-gray-200 bg-white">
+            <div class="h-11 w-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+              <i class={w.icon + ' text-blue-600'} aria-hidden="true"></i>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-slate-900 mb-2">{w.title}</h2>
+              <p class="text-sm text-slate-600 leading-relaxed">{w.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="text-center p-12 rounded-2xl border border-blue-200 bg-blue-50/50">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">See Silence in action for your team</h2>
+        <p class="text-slate-600 mb-8">Book a 30-minute demo and we'll show you exactly how Silence fits your business.</p>
+        <a href="/demo" class="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-200 glow-sm">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Request Demo
+        </a>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

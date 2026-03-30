@@ -1,0 +1,177 @@
+---
+const navLinks = [
+  {
+    label: 'Product',
+    children: [
+      { label: 'Features', href: '/features' },
+      { label: 'Modules', href: '/modules' },
+      { label: 'Integrations', href: '/integrations' },
+      { label: 'Security', href: '/security' },
+    ],
+  },
+  {
+    label: 'Solutions',
+    children: [
+      { label: 'Enterprise', href: '/solutions/enterprise' },
+      { label: 'SME', href: '/solutions/sme' },
+    ],
+  },
+  { label: 'Pricing', href: '/pricing' },
+  {
+    label: 'Resources',
+    children: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Changelog', href: '/changelog' },
+      { label: 'Customers', href: '/customers' },
+      { label: 'Documentation', href: '/docs' },
+    ],
+  },
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="fixed top-0 inset-x-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-lg">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4" aria-label="Main navigation">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group" aria-label="Silence home">
+      <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center glow-sm group-hover:glow-md transition-all duration-300">
+        <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="text-xl font-bold tracking-tight text-slate-900">Silence</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden lg:flex items-center gap-1" role="list">
+      {navLinks.map((link) => (
+        <li class="relative group">
+          {link.href ? (
+            <a
+              href={link.href}
+              class:list={[
+                'px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
+                pathname === link.href
+                  ? 'text-blue-600 bg-blue-50'
+                  : 'text-slate-700 hover:text-gray-900 hover:bg-gray-100',
+              ]}
+            >
+              {link.label}
+            </a>
+          ) : (
+            <>
+              <button
+                class="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-slate-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors duration-150"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {link.label}
+                <svg class="h-3.5 w-3.5 opacity-60 transition-transform duration-150 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <!-- Dropdown -->
+              <div class="absolute left-0 top-full mt-1 hidden group-hover:block min-w-[180px] rounded-xl border border-gray-200 bg-slate-100 p-1.5 shadow-xl">
+                {link.children?.map((child) => (
+                  <a
+                    href={child.href}
+                    class:list={[
+                      'flex items-center px-3 py-2 text-sm rounded-lg transition-colors duration-150',
+                      pathname === child.href
+                        ? 'text-blue-600 bg-blue-50'
+                        : 'text-slate-700 hover:text-gray-900 hover:bg-gray-100',
+                    ]}
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <!-- CTAs -->
+    <div class="hidden lg:flex items-center gap-3">
+      <a
+        href="/contact"
+        class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-gray-900 transition-colors duration-150"
+      >
+        Contact Sales
+      </a>
+      <a
+        href="/demo"
+        class="px-5 py-2 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-150 glow-sm hover:glow-md shadow-lg"
+      >
+        Request Demo
+      </a>
+    </div>
+
+    <!-- Mobile menu toggle -->
+    <button
+      id="mobile-menu-toggle"
+      class="lg:hidden p-2 text-slate-700 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
+      aria-label="Toggle mobile menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg id="menu-icon-open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white px-6 pb-6 pt-4">
+    <nav aria-label="Mobile navigation">
+      <ul class="space-y-1" role="list">
+        {navLinks.map((link) =>
+          link.href ? (
+            <li>
+              <a href={link.href} class="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ) : (
+            <li>
+              <p class="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">{link.label}</p>
+              {link.children?.map((child) => (
+                <a href={child.href} class="block px-3 py-2 text-sm text-slate-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                  {child.label}
+                </a>
+              ))}
+            </li>
+          )
+        )}
+      </ul>
+      <div class="mt-6 flex flex-col gap-3">
+        <a href="/contact" class="block text-center px-4 py-2.5 text-sm font-medium text-slate-700 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors">
+          Contact Sales
+        </a>
+        <a href="/demo" class="block text-center px-4 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-blue-600 to-blue-700">
+          Request Demo
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+</script>

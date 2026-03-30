@@ -1,0 +1,38 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('changelog');
+  return entries.map((entry) => ({ params: { version: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const cl = entry.data;
+---
+
+<BlogLayout title={'v' + cl.version + ' — ' + cl.title} description={cl.summary} publishedAt={cl.releasedAt}>
+  <div class="mx-auto max-w-3xl px-6 py-16 lg:px-0">
+    <a href="/changelog" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-8 transition-colors">
+      <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i> Changelog
+    </a>
+    <time class="text-xs text-slate-500" datetime={cl.releasedAt.toISOString()}>
+      {cl.releasedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </time>
+    <h1 class="text-3xl font-extrabold text-slate-900 mt-2 mb-4">v{cl.version} — {cl.title}</h1>
+    <p class="text-slate-600 mb-8">{cl.summary}</p>
+    {cl.highlights.length > 0 && (
+      <ul class="space-y-2 mb-10">
+        {cl.highlights.map((h) => (
+          <li class="flex items-start gap-3 text-sm text-slate-700">
+            <i class="fa-solid fa-circle-check text-blue-600 text-xs mt-1 shrink-0" aria-hidden="true"></i>{h}
+          </li>
+        ))}
+      </ul>
+    )}
+    <div class="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-blue-600 prose-code:text-blue-600 prose-code:bg-gray-100">
+      <Content />
+    </div>
+  </div>
+</BlogLayout>

@@ -1,0 +1,77 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedAt?: Date;
+  updatedAt?: Date;
+  author?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  image = '/images/og-default.png',
+  type = 'website',
+  publishedAt,
+  updatedAt,
+  author = 'Silence',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://silence.ai';
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+const fullTitle = title === 'Silence' ? title : `${title} — Silence`;
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Silence',
+  url: siteUrl,
+  logo: `${siteUrl}/images/logo.svg`,
+  sameAs: [
+    'https://twitter.com/silenceai',
+    'https://linkedin.com/company/silence-ai',
+  ],
+};
+---
+
+<!-- Primary Meta -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:site_name" content="Silence" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@silenceai" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+
+<!-- Article meta -->
+{type === 'article' && publishedAt && (
+  <meta property="article:published_time" content={publishedAt.toISOString()} />
+)}
+{type === 'article' && updatedAt && (
+  <meta property="article:modified_time" content={updatedAt.toISOString()} />
+)}
+{type === 'article' && author && (
+  <meta property="article:author" content={author} />
+)}
+
+<!-- JSON-LD: Organization -->
+<script type="application/ld+json" set:html={JSON.stringify(org)} />

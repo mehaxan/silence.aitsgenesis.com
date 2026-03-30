@@ -1,0 +1,55 @@
+---
+title: "Jira Migration Complete — Silence Projects Is Ready"
+description: "A practical guide to migrating from Jira to Silence Projects. Export, import, and go live in a day."
+publishedAt: "2026-02-20"
+author: "Silence Team"
+tags: ["projects", "migration", "jira"]
+---
+
+Migrating from Jira to Silence Projects is simpler than you think. This guide walks you through the full process — from exporting your Jira data to running your first sprint in Silence.
+
+## Before you start
+
+You'll need:
+
+- Jira admin access (for export)
+- Silence admin access
+- ~30 minutes
+
+## Step 1: Export from Jira
+
+In Jira, go to **Settings → System → Backup Manager**. Download a full backup in XML format. This includes projects, issues, comments, and attachments.
+
+Alternatively, use the Jira CSV export for individual projects: **Board → Project settings → Export**.
+
+## Step 2: Import into Silence
+
+In Silence, navigate to **Admin → Data Import → Jira**. Upload your XML backup or CSV file. Silence maps Jira concepts to Silence equivalents automatically:
+
+| Jira | Silence Projects |
+|------|-----------------|
+| Epic | Epic |
+| Story | Task |
+| Bug | Bug |
+| Sprint | Sprint |
+| Component | Module tag |
+
+Custom fields, labels, and assignees are preserved where a matching user exists in your Silence workspace.
+
+## Step 3: Review and adjust
+
+After import, review your boards. You may want to:
+
+- Adjust workflow statuses to match your team's process
+- Set up automations (e.g., notify on status change)
+- Connect issues to your CRM deals or customer accounts
+
+## Step 4: Invite your team
+
+Add your team members from **Admin → Users**. They'll receive a welcome email with onboarding resources.
+
+## That's it
+
+Most teams are fully productive in Silence Projects within a single working day. The Jira muscle memory translates — boards, sprints, backlogs and filters all work the way you expect, just faster and without the per-seat bill.
+
+Questions? [Contact our support team](/contact).

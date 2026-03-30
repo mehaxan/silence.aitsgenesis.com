@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+const faqs = [
+  { q: 'Can I import data from my existing tools?', a: 'Yes. Silence provides import tools for CSV, Excel, and direct integrations with Google Workspace, Microsoft 365, Jira and more. The onboarding team can assist with complex migrations.' },
+  { q: 'Is Silence available on mobile?', a: 'Yes. Silence has native iOS and Android apps with full feature parity for core modules. The web app is also fully responsive.' },
+  { q: 'How does multi-tenancy work?', a: 'Each organisation or business unit gets a fully isolated environment with its own users, data, branding and configuration. Environments can be managed from a parent admin console.' },
+  { q: 'How long does onboarding take?', a: 'Most teams are fully onboarded within 1–5 business days. Enterprise rollouts with custom integrations may take 2–6 weeks, supported by our implementation team.' },
+  { q: 'Can I customise fields, forms and workflows?', a: 'Yes. Every module supports custom fields, forms and workflow rules without coding. Advanced customisation is available via the workflow builder and REST API.' },
+  { q: 'What happens to my data if I leave?', a: 'You can export all your data in standard formats (CSV, JSON, PDF) at any time. Upon contract termination, data is retained for 30 days then permanently deleted.' },
+];
+
+const faqLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(f => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a }
+  }))
+};
+---
+
+<DocsLayout title="FAQ" description="Frequently asked questions about Silence — onboarding, data import, mobile apps, multi-tenancy and more.">
+  <script type="application/ld+json" set:html={JSON.stringify(faqLD)}></script>
+  <h1 class="text-3xl font-extrabold text-slate-900 mb-4">Frequently Asked Questions</h1>
+  <p class="text-slate-600 mb-10">Can't find your answer here? <a href="/contact" class="text-blue-600 hover:text-blue-700">Contact our team</a>.</p>
+
+  <dl class="space-y-6">
+    {faqs.map((faq) => (
+      <div class="border-b border-gray-200 pb-6">
+        <dt class="text-base font-semibold text-slate-900 mb-2">{faq.q}</dt>
+        <dd class="text-sm text-slate-600 leading-relaxed">{faq.a}</dd>
+      </div>
+    ))}
+  </dl>
+</DocsLayout>

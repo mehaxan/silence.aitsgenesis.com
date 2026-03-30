@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brand-primary: #2563EB;
+    --color-brand-secondary: #1D4ED8;
+    --color-brand-accent: #0EA5E9;
+    --color-brand-dark: #F8FAFC;
+    --color-brand-surface: #F1F5F9;
+    --color-brand-border: #E2E8F0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    @apply bg-blue-200 text-blue-900;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent;
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 24px 0 rgba(37, 99, 235, 0.25);
+  }
+
+  .glow-md {
+    box-shadow: 0 0 48px 0 rgba(37, 99, 235, 0.35);
+  }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-gray-200;
+  }
+
+  .section-padding {
+    @apply px-6 py-20 md:px-12 lg:px-24;
+  }
+}

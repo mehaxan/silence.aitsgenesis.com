@@ -1,0 +1,51 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+
+const featured = [
+  { name: 'Slack', icon: 'fa-brands fa-slack', desc: 'Send notifications and create tasks directly from Slack messages.' },
+  { name: 'Salesforce', icon: 'fa-solid fa-cloud', desc: 'Bi-directional sync of contacts, deals and activities.' },
+  { name: 'SAP', icon: 'fa-solid fa-database', desc: 'Connect ERP data for finance, procurement and HR workflows.' },
+  { name: 'Microsoft 365', icon: 'fa-brands fa-microsoft', desc: 'Import emails, calendar events and SharePoint documents.' },
+  { name: 'Google Workspace', icon: 'fa-brands fa-google', desc: 'Import Drive files, Gmail threads and Google Calendar events.' },
+  { name: 'Zapier', icon: 'fa-solid fa-bolt', desc: 'Connect Silence to 6000+ apps via Zapier automations.' },
+  { name: 'Stripe', icon: 'fa-brands fa-stripe', desc: 'Sync payment data and trigger workflows on invoice events.' },
+  { name: 'GitHub', icon: 'fa-brands fa-github', desc: 'Link commits and PRs to Silence project tasks.' },
+  { name: 'HubSpot', icon: 'fa-solid fa-h', desc: 'Sync marketing contacts and campaign data with CRM.' },
+  { name: 'Zendesk', icon: 'fa-solid fa-headset', desc: 'Create and update support tickets from Silence workflows.' },
+  { name: 'Jira', icon: 'fa-solid fa-j', desc: 'Migrate from or sync issues between Jira and Silence Projects.' },
+  { name: 'Make (Integromat)', icon: 'fa-solid fa-circle-nodes', desc: 'Build advanced multi-step automation with Make scenarios.' },
+];
+---
+
+<MarketingLayout title="Integrations" description="Connect Silence to 500+ tools including Slack, Salesforce, SAP, Microsoft 365, Google Workspace, Zapier and more.">
+  <section class="relative bg-white section-padding">
+    <div class="mx-auto max-w-7xl">
+      <div class="text-center mb-16">
+        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">500+ integrations</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">Connect everything you rely on</h1>
+        <p class="text-slate-600 text-lg max-w-2xl mx-auto">Silence integrates with the tools your team already uses — or replaces them entirely.</p>
+      </div>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-16" role="list">
+        {featured.map((int) => (
+          <li class="flex items-start gap-4 p-6 rounded-2xl border border-gray-200 bg-white hover:bg-gray-100 hover:border-gray-200 transition-all duration-200">
+            <div class="h-10 w-10 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
+              <i class={int.icon + ' text-slate-700 text-lg'} aria-hidden="true"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-semibold text-slate-900 mb-1">{int.name}</h2>
+              <p class="text-xs text-slate-500 leading-relaxed">{int.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="text-center p-10 rounded-2xl border border-gray-200 bg-white">
+        <p class="text-slate-600 mb-4">Need a custom integration? Our enterprise team can build it.</p>
+        <a href="/contact" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+          Talk to us <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

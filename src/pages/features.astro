@@ -1,0 +1,123 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+
+const categories = [
+  {
+    label: 'AI & Automation',
+    icon: 'fa-solid fa-robot',
+    features: [
+      { title: 'AI Workflow Builder', desc: 'Build complex automations visually with AI-suggested steps.' },
+      { title: 'Document Intelligence', desc: 'Extract, classify and process documents with AI accuracy.' },
+      { title: 'Smart Predictions', desc: 'Forecast trends and anomalies across every module.' },
+      { title: 'RPA Bots', desc: 'Automate repetitive tasks across web and desktop apps.' },
+    ],
+  },
+  {
+    label: 'Collaboration',
+    icon: 'fa-solid fa-people-group',
+    features: [
+      { title: 'Real-time Docs', desc: 'Co-edit documents, spreadsheets and presentations together.' },
+      { title: 'Team Chat', desc: 'Channels, direct messages and threaded conversations.' },
+      { title: 'Video Meetings', desc: 'Built-in video conferencing with recording and AI summaries.' },
+      { title: 'Shared Inbox', desc: 'Manage team email collaboratively with assignments and statuses.' },
+    ],
+  },
+  {
+    label: 'Project & Work Management',
+    icon: 'fa-solid fa-diagram-project',
+    features: [
+      { title: 'Kanban Boards', desc: 'Visual boards for agile and waterfall workflows.' },
+      { title: 'Gantt Charts', desc: 'Timeline views with dependency management.' },
+      { title: 'Sprints', desc: 'Plan, run and review sprints with velocity tracking.' },
+      { title: 'Time Tracking', desc: 'Log and report on time across tasks and projects.' },
+    ],
+  },
+  {
+    label: 'Business Operations',
+    icon: 'fa-solid fa-building',
+    features: [
+      { title: 'CRM & Sales Pipeline', desc: 'Manage contacts, deals and the full sales cycle.' },
+      { title: 'Invoicing & Billing', desc: 'Create, send and track invoices with automated reminders.' },
+      { title: 'HR & Payroll', desc: 'Onboard employees, run payroll and track attendance.' },
+      { title: 'Inventory & Procurement', desc: 'Track stock, manage suppliers and approve purchase orders.' },
+    ],
+  },
+  {
+    label: 'Enterprise & Security',
+    icon: 'fa-solid fa-shield-halved',
+    features: [
+      { title: 'Multi-tenant Architecture', desc: 'Fully isolated tenants with per-tenant customisation.' },
+      { title: 'Single Sign-On (SSO)', desc: 'SAML 2.0 and OIDC integration with any Identity Provider.' },
+      { title: 'Granular Permissions', desc: 'Role-based and attribute-based access control.' },
+      { title: 'Audit Logs', desc: 'Complete, tamper-evident activity history for compliance.' },
+    ],
+  },
+  {
+    label: 'Integrations',
+    icon: 'fa-solid fa-plug',
+    features: [
+      { title: '500+ Connectors', desc: 'Pre-built integrations with Slack, SAP, Salesforce and more.' },
+      { title: 'Webhook Engine', desc: 'Send and receive webhooks to any external system.' },
+      { title: 'REST API', desc: 'Full REST API for custom integrations and data access.' },
+      { title: 'iPaaS Ready', desc: 'Native connectors for Zapier, Make and n8n.' },
+    ],
+  },
+];
+---
+
+<MarketingLayout
+  title="Features"
+  description="Explore all the features that make Silence the most complete enterprise automation platform — AI workflows, project management, CRM, HR, finance and more."
+>
+  <!-- Hero -->
+  <section class="relative bg-white section-padding text-center" aria-label="Features hero">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-blue-200/30 blur-[100px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-3xl">
+      <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">Full feature overview</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">Everything you need. Nothing you don't.</h1>
+      <p class="text-slate-600 text-lg leading-relaxed">Silence is engineered to replace your entire tool stack — without compromise on depth or power.</p>
+    </div>
+  </section>
+
+  <!-- Feature grid -->
+  <section class="bg-white pb-24 px-6 lg:px-24" aria-label="Feature categories">
+    <div class="mx-auto max-w-7xl space-y-20">
+      {categories.map((cat) => (
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center">
+              <i class={cat.icon + ' text-blue-600'} aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-bold text-slate-900">{cat.label}</h2>
+          </div>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" role="list">
+            {cat.features.map((f) => (
+              <li class="p-6 rounded-2xl border border-gray-200 bg-white hover:bg-blue-50/50 hover:border-blue-200 transition-all duration-200">
+                <h3 class="text-sm font-semibold text-slate-900 mb-2">{f.title}</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-slate-50 section-padding text-center">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-3xl font-bold text-slate-900 mb-4">See every feature in action</h2>
+      <p class="text-slate-600 mb-8">Book a live demo tailored to your team's use case.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/demo" class="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-200 glow-sm">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Request Demo
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-slate-700 rounded-xl border border-gray-200 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

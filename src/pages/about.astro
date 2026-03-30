@@ -1,0 +1,56 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+---
+
+<MarketingLayout title="About Silence" description="Learn about Silence — the AI-powered enterprise automation platform. Our mission, story and team.">
+  <section class="relative bg-white section-padding">
+    <div class="mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">About</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">We built the platform we always needed</h1>
+        <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto">
+          Silence was born out of frustration. We were running a growing business stitched together with nine different SaaS tools, and nothing talked to each other properly. So we built Silence — the all-in-one AI platform we wish had existed.
+        </p>
+      </div>
+
+      <!-- Mission -->
+      <div class="mb-20 p-10 rounded-2xl border border-blue-200 bg-blue-50/50 text-center">
+        <i class="fa-solid fa-bullseye text-3xl text-blue-600 mb-4" aria-hidden="true"></i>
+        <h2 class="text-xl font-bold text-slate-900 mb-3">Our mission</h2>
+        <p class="text-slate-700 text-lg leading-relaxed max-w-xl mx-auto">To give every enterprise and SME the power to go fully paperless and automate every workflow — without a 12-month implementation project.</p>
+      </div>
+
+      <!-- Values -->
+      <div class="mb-20">
+        <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">What we believe</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
+          {[
+            { icon: 'fa-solid fa-layer-group', title: 'Integration over fragmentation', desc: 'Tools that talk to each other unlock exponential productivity.' },
+            { icon: 'fa-solid fa-robot', title: 'AI should be invisible', desc: 'The best AI automation is the kind that just works, without configuration.' },
+            { icon: 'fa-solid fa-people-group', title: 'People first', desc: 'Software should adapt to how teams work — not the other way around.' },
+            { icon: 'fa-solid fa-lock', title: 'Security by default', desc: 'Enterprise data deserves enterprise-grade protection on day one.' },
+          ].map((v) => (
+            <li class="flex gap-4 p-6 rounded-2xl border border-gray-200 bg-white">
+              <div class="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                <i class={v.icon + ' text-blue-600'} aria-hidden="true"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 mb-1">{v.title}</h3>
+                <p class="text-sm text-slate-600">{v.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Join the journey</h2>
+        <p class="text-slate-600 mb-8">We are always looking for talented people who want to reshape how organisations work.</p>
+        <a href="/contact" class="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-200 glow-sm">
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

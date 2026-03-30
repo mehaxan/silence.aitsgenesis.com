@@ -1,0 +1,29 @@
+---
+version: "2.4.0"
+releasedAt: "2026-02-01"
+title: "AI Workflow Engine v2, Finance Overhaul & 40+ improvements"
+summary: "This release introduces the redesigned AI Workflow Engine with multi-branch logic, a completely rebuilt Finance module, and over 40 bug fixes and performance improvements across the platform."
+highlights:
+  - "AI Workflow Engine v2: multi-branch conditional logic, parallel execution and loop steps"
+  - "Finance module rebuilt: faster ledger posting, multi-currency support and bank reconciliation"
+  - "Document Intelligence now supports 14 languages for invoice extraction"
+  - "Projects: Gantt chart dependency arrows and critical path highlighting"
+  - "Communication: AI-generated meeting summaries with action item extraction"
+  - "Admin: SCIM provisioning for Okta and Azure AD"
+  - "API rate limits increased 5× for enterprise plans"
+  - "40+ bug fixes and performance improvements"
+---
+
+## AI Workflow Engine v2
+
+The workflow engine has been completely rewritten to support parallel execution, multi-branch conditional logic, and loop steps. Workflows can now fan out across multiple branches simultaneously and merge results, enabling complex automation patterns that previously required custom code.
+
+### New step types
+- **Branch** — run different paths based on conditions
+- **Parallel** — execute multiple steps simultaneously
+- **Loop** — iterate over collections of data
+- **Sub-workflow** — call other workflows as reusable building blocks
+
+## Finance module rebuild
+
+The Finance module has been rewritten from the ground up with a new ledger engine, multi-currency support, and real-time bank reconciliation. Posting speed is 10× faster for large volumes.

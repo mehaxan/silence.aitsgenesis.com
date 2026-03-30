@@ -1,0 +1,45 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).filter((p) => !p.data.draft).sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+---
+
+<MarketingLayout title="Blog" description="The latest articles, guides and product news from the Silence team — enterprise automation, AI and business productivity.">
+  <section class="relative bg-white section-padding">
+    <div class="mx-auto max-w-7xl">
+      <div class="text-center mb-16">
+        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">Blog</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">Insights & resources</h1>
+        <p class="text-slate-600 text-lg">Articles, guides and product news from the Silence team.</p>
+      </div>
+
+      {posts.length === 0 ? (
+        <div class="text-center py-20 text-slate-500">
+          <i class="fa-solid fa-pen-nib text-4xl mb-4 text-slate-700" aria-hidden="true"></i>
+          <p>Articles coming soon.</p>
+        </div>
+      ) : (
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
+          {posts.map((post) => (
+            <li>
+              <a href={'/blog/' + post.id} class="group flex flex-col h-full p-8 rounded-2xl border border-gray-200 bg-white hover:bg-blue-50/50 hover:border-blue-200 transition-all duration-200">
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                  {post.data.tags.slice(0, 3).map((tag) => (
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">{tag}</span>
+                  ))}
+                </div>
+                <h2 class="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">{post.data.title}</h2>
+                <p class="text-sm text-slate-600 flex-1 mb-6">{post.data.description}</p>
+                <div class="flex items-center justify-between text-xs text-slate-600">
+                  <span>{post.data.author}</span>
+                  <time datetime={post.data.publishedAt.toISOString()}>{post.data.publishedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</MarketingLayout>

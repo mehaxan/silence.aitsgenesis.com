@@ -1,0 +1,36 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('caseStudies');
+  return studies.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const cs = entry.data;
+---
+
+<BlogLayout title={cs.title} description={cs.description} publishedAt={cs.publishedAt}>
+  <div class="mx-auto max-w-3xl px-6 py-16 lg:px-0">
+    <a href="/customers" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-8 transition-colors">
+      <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i> All customers
+    </a>
+    <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider mb-3">{cs.industry}</p>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">{cs.title}</h1>
+    {cs.results.length > 0 && (
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+        {cs.results.map((r) => (
+          <div class="p-4 rounded-xl border border-gray-200 bg-white text-center">
+            <dt class="text-2xl font-extrabold text-gradient">{r.value}</dt>
+            <dd class="text-xs text-slate-500 mt-1">{r.metric}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+    <div class="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-blue-600 prose-code:text-blue-600 prose-code:bg-gray-100">
+      <Content />
+    </div>
+  </div>
+</BlogLayout>

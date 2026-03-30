@@ -1,0 +1,153 @@
+---
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  module?: string;
+  section?: string;
+  image?: string;
+}
+
+const { title, description, module: mod, section, image } = Astro.props;
+
+// Build breadcrumb for structured data
+const breadcrumbs = [
+  { name: 'Home', url: 'https://silence.ai/' },
+  { name: 'Docs', url: 'https://silence.ai/docs' },
+];
+if (mod) breadcrumbs.push({ name: mod, url: `https://silence.ai/docs/${mod.toLowerCase()}` });
+breadcrumbs.push({ name: title, url: `https://silence.ai${Astro.url.pathname}` });
+
+const breadcrumbLD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((b, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: b.name,
+    item: b.url,
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <SEO {title} {description} {image} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLD)} />
+  </head>
+  <body style="font-family: 'Inter', sans-serif;">
+    <Navbar />
+
+    <div class="pt-[73px] flex min-h-screen">
+      <!-- Sidebar -->
+      <aside class="hidden lg:flex flex-col w-72 shrink-0 border-r border-gray-200 bg-slate-50 sticky top-[73px] self-start h-[calc(100vh-73px)] overflow-y-auto">
+        <div class="p-6">
+          <a href="/docs" class="flex items-center gap-2 mb-6 text-slate-600 hover:text-gray-900 text-sm transition-colors">
+            <i class="fa-solid fa-book text-blue-600" aria-hidden="true"></i>
+            <span class="font-semibold text-slate-900">Documentation</span>
+          </a>
+
+          <!-- Search -->
+          <div class="relative mb-6">
+            <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+              <i class="fa-solid fa-magnifying-glass text-slate-500 text-sm" aria-hidden="true"></i>
+            </div>
+            <input
+              id="pagefind-search"
+              type="search"
+              placeholder="Search docs..."
+              class="w-full pl-9 pr-4 py-2 text-sm bg-gray-100 border border-gray-200 rounded-lg text-slate-700 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-400/40 focus:border-blue-1000"
+            />
+          </div>
+
+          <!-- Nav -->
+          <nav aria-label="Docs navigation">
+            <div class="space-y-6">
+              <div>
+                <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Getting Started</p>
+                <ul class="space-y-1" role="list">
+                  <li><a href="/docs/getting-started/introduction" class="block px-3 py-1.5 text-sm text-slate-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">Introduction</a></li>
+                  <li><a href="/docs/getting-started/quick-start" class="block px-3 py-1.5 text-sm text-slate-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">Quick Start</a></li>
+                  <li><a href="/docs/getting-started/concepts" class="block px-3 py-1.5 text-sm text-slate-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">Core Concepts</a></li>
+                </ul>
+              </div>
+
+              {[
+                { label: 'Workspace', slug: 'workspace' },
+                { label: 'Communication', slug: 'communication' },
+                { label: 'Projects', slug: 'projects' },
+                { label: 'CRM', slug: 'crm' },
+                { label: 'HR', slug: 'hr' },
+                { label: 'Finance', slug: 'finance' },
+                { label: 'Operations', slug: 'operations' },
+                { label: 'AI & Automation', slug: 'ai-automation' },
+                { label: 'Integrations', slug: 'integrations' },
+                { label: 'Admin', slug: 'admin' },
+              ].map((m) => (
+                <div>
+                  <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">{m.label}</p>
+                  <ul class="space-y-1" role="list">
+                    <li><a href={`/docs/${m.slug}`} class="block px-3 py-1.5 text-sm text-slate-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">Overview</a></li>
+                  </ul>
+                </div>
+              ))}
+
+              <div>
+                <p class="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Reference</p>
+                <ul class="space-y-1" role="list">
+                  <li><a href="/docs/faq" class="block px-3 py-1.5 text-sm text-slate-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">FAQ</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <div class="flex-1 min-w-0">
+        <article class="mx-auto max-w-3xl px-6 py-12 lg:px-12">
+          <!-- Breadcrumb -->
+          <nav aria-label="Breadcrumb" class="mb-8">
+            <ol class="flex items-center gap-2 text-sm text-slate-500" role="list">
+              <li><a href="/docs" class="hover:text-slate-700 transition-colors">Docs</a></li>
+              {mod && (
+                <>
+                  <li aria-hidden="true"><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></li>
+                  <li class="text-slate-600">{mod}</li>
+                </>
+              )}
+              <li aria-hidden="true"><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></li>
+              <li class="text-slate-800" aria-current="page">{title}</li>
+            </ol>
+          </nav>
+
+          <!-- MDX content -->
+          <div class="prose prose-slate max-w-none
+            prose-headings:font-bold prose-headings:text-slate-900
+            prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:border-t prose-h2:border-gray-200 prose-h2:pt-8
+            prose-a:text-blue-600 hover:prose-a:text-blue-700
+            prose-code:bg-gray-100 prose-code:text-blue-600 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-normal
+            prose-pre:bg-slate-50 prose-pre:border prose-pre:border-gray-200
+            prose-blockquote:border-l-blue-500 prose-blockquote:text-slate-600
+            prose-strong:text-slate-900 prose-hr:border-gray-200">
+            <slot />
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <Footer />
+  </body>
+</html>
